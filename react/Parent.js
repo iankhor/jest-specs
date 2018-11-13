@@ -3,8 +3,8 @@ import request from './../async/request'
 
 const Child = props => (
   <div>
-    <input id="click" onClick={props.childOnClick}>Child</input>
-    <input id="async-click" onClick={props.requestOnClick}>Child</input>
+    <input id="child-click" onClick={props.childOnClick}>Child</input>
+    <input id="child-async-click" onClick={props.requestOnClick}>Child</input>
   </div>
 )
 
@@ -31,6 +31,7 @@ export default class Parent extends Component {
   render() {
     return(
       <div>
+        <input id="click" onClick={this.props.someFunction}></input>
         <Child childOnClick={this.childOnClick} requestOnClick={this.request} />
       </div>
     )
