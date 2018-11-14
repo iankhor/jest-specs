@@ -1,5 +1,6 @@
 import React from 'react'
-import Parent from './../Parent'
+import Parent, { Child } from './../Parent'
+import renderer from 'react-test-renderer';
 import { shallow } from 'enzyme'
 
 describe('Parent', () => {
@@ -51,6 +52,12 @@ describe('Parent', () => {
         expect(component.state().asyncResponse).toEqual('real request: mojo')
         done()
       })
+    })
+
+    describe('snapshot testing', () => {
+      const tree = renderer.create(<Child />).toJSON();
+
+      expect(tree).toMatchSnapshot();
     })
   })
 
