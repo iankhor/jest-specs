@@ -22,7 +22,7 @@ describe('Parent', () => {
     })
 
     describe('when input element is clicked twice', () => {
-      it('called once', () => {
+      it('called twice', () => {
         component.find('input[id="click"]').simulate('click')
         component.find('input[id="click"]').simulate('click')
 
