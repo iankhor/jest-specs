@@ -53,4 +53,18 @@ describe('Parent', () => {
       })
     })
   })
+
+  describe('grandChild', () => {
+    let grandChildComponent
+
+    beforeEach(() => grandChildComponent = component.find('Child').dive().find('GrandChild'))
+
+    it('renders', () => expect(component.find('Child').dive().find('GrandChild')).toHaveLength(1))
+
+    it('updates grandChildValue if clicked on', () => {
+      grandChildComponent.dive().find('input[id="grand-child-click"]').simulate('click')
+
+      expect(component.state().grandChildValue).toEqual(3)
+    })
+  })
 })

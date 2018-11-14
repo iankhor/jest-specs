@@ -5,6 +5,13 @@ const Child = props => (
   <div>
     <input id="child-click" onClick={props.childOnClick}>Child</input>
     <input id="child-async-click" onClick={props.requestOnClick}>Child</input>
+    <GrandChild grandChildOnClick={props.grandChildOnClick}/>
+  </div>
+)
+
+const GrandChild = props => (
+  <div>
+    <input id="grand-child-click" onClick={() => props.grandChildOnClick(3)}>grandChild</input>
   </div>
 )
 
@@ -14,6 +21,7 @@ export default class Parent extends Component {
 
     this.state = {
       childValue: false,
+      grandChildValue: 0,
       asyncResponse: ''
     }
   }
@@ -24,15 +32,21 @@ export default class Parent extends Component {
     this.setState({ asyncResponse: response })
   }
 
-  childOnClick = () => {
-    this.setState({ childValue: true })
+  childOnClick = () => this.setState({ childValue: true })
+
+  grandChildOnClick = value => {
+    this.setState({ grandChildValue: value })
   }
 
   render() {
     return(
       <div>
         <input id="click" onClick={this.props.someFunction}></input>
-        <Child childOnClick={this.childOnClick} requestOnClick={this.request} />
+        <Child
+          childOnClick={this.childOnClick}
+          requestOnClick={this.request}
+          grandChildOnClick={this.grandChildOnClick}
+        />
       </div>
     )
   }
