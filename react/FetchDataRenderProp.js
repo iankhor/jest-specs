@@ -1,19 +1,14 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 
-// implmenting the function as children pattern
+// implmenting the render prop pattern
 
 // Possible usage examples:
 
-// <FetchData url="www.someAPI.com">
-//  { data => <p>data</p> }
-// </FetchData>
+// <FetchDataRenderProp url="www.someAPI.com" render={ data => <p>data</p>}>
+// <FetchDataRenderProp url="www.someAPI.com" render={ data => <section>data</section>}>
 
-// <FetchData url="www.someAPI.com">
-//  { data => <section>data</section> }
-// </FetchData>
-
-export default class FetchData extends Component {
+export default class FetchDataRenderProp extends Component {
   constructor(props) {
     super(props)
 
@@ -33,7 +28,7 @@ export default class FetchData extends Component {
   render() {
     return(
       <React.Fragment>
-        { this.props.children(this.state.data) }
+        {this.props.render(this.state.data)}
       </React.Fragment>
     )
   }
