@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 
+// implmenting the function as children pattern
 export default class FetchData extends Component {
   constructor(props) {
     super(props)
@@ -20,7 +21,9 @@ export default class FetchData extends Component {
 
   render() {
     return(
-      <div></div>
+      <React.Fragment>
+        { this.props.children(this.state.data) }
+      </React.Fragment>
     )
   }
 }
