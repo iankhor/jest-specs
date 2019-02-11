@@ -1,9 +1,9 @@
 import React from 'react'
 import fakeAxios from 'axios'
-import FetchData from './../FetchData'
+import FetchDataFunctionAsChildren from './../FetchDataFunctionAsChildren'
 import { shallow } from 'enzyme'
 
-describe('FetchData', () => {
+describe('FetchDataFunctionAsChildren', () => {
 
   let component;
   const DummyComponent = () => <div></div>
@@ -11,7 +11,7 @@ describe('FetchData', () => {
   beforeEach(() => jest.clearAllMocks())
 
   it('renders with function as a children', () => {
-    component = shallow(<FetchData>{ () => {} }</FetchData>)
+    component = shallow(<FetchDataFunctionAsChildren>{ () => {} }</FetchDataFunctionAsChildren>)
 
     expect(component).toHaveLength(1)
   })
@@ -22,7 +22,7 @@ describe('FetchData', () => {
     })
 
     component = shallow(
-      <FetchData url="www.dummy.com">{ () => {} }</FetchData>
+      <FetchDataFunctionAsChildren url="www.dummy.com">{ () => {} }</FetchDataFunctionAsChildren>
     )
 
     process.nextTick(() => {
@@ -42,9 +42,9 @@ describe('FetchData', () => {
     })
 
     component = shallow(
-      <FetchData>
+      <FetchDataFunctionAsChildren>
         { data => <DummyComponent displayData={data}/> }
-      </FetchData>
+      </FetchDataFunctionAsChildren>
     )
 
     process.nextTick(() => {

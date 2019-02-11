@@ -5,15 +5,15 @@ import axios from 'axios'
 
 // Possible usage examples:
 
-// <FetchData url="www.someAPI.com">
-//  { data => <p>data</p> }
-// </FetchData>
+// <FetchDataFunctionAsChildren url="www.someAPI.com">
+//  { data => <ShowDataList data={data}> }
+// </FetchDataFunctionAsChildren>
 
-// <FetchData url="www.someAPI.com">
+// <FetchDataFunctionAsChildren url="www.someAPI.com">
 //  { data => <section>data</section> }
-// </FetchData>
+// </FetchDataFunctionAsChildren>
 
-export default class FetchData extends Component {
+export default class FetchDataFunctionAsChildren extends Component {
   constructor(props) {
     super(props)
 
