@@ -1,19 +1,27 @@
-import React from 'react';
+import React, { createContext, useContext } from 'react';
 
-const OuterChild = ({ innerChildValue }) => {
+const Context = createContext();
+
+const OuterChild = ({ propDrillInnerChildValue }) => {
+  const { contextInnerChildValue } = useContext(Context);
+
   return (
     <div id="outer-child">
-      <InnerChild innerChildValue={innerChildValue} />
+      <InnerChild propDrillInnerChildValue={propDrillInnerChildValue} contextInnerChildValue={contextInnerChildValue} />
     </div>
   );
 };
 
-const InnerChild = () => {
-  return <div id="inner-child"></div>;
+const InnerChild = ({ contextInnerChildValue }) => {
+  return <div id="inner-child">{contextInnerChildValue}</div>;
 };
 
-const PropDrillingAndHooksContainer = ({ innerChildValue }) => {
-  return <OuterChild innerChildValue={innerChildValue} />;
+const PropDrillingAndHooksContainer = ({ propDrillInnerChildValue, contextInnerChildValue }) => {
+  return (
+    <Context.Provider value={{ contextInnerChildValue }}>
+      <OuterChild propDrillInnerChildValue={propDrillInnerChildValue} />
+    </Context.Provider>
+  );
 };
 
 export default PropDrillingAndHooksContainer;

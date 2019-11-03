@@ -5,7 +5,7 @@ import { mount } from 'enzyme';
 describe('context', () => {
   let component;
 
-  beforeEach(() => (component = mount(<PropDrillingAndHooksContainer innerChildValue="123" />)));
+  beforeEach(() => (component = mount(<PropDrillingAndHooksContainer contextInnerChildValue="456" propDrillInnerChildValue="123" />)));
 
   it('PropDrillingAndHooksContainer has OuterChild', () => {
     expect(component.find('PropDrillingAndHooksContainer OuterChild').exists()).toEqual(true);
@@ -16,11 +16,20 @@ describe('context', () => {
   });
 
   describe('props drilling', () => {
-    it('passes innerChildValue props via OuterChild', () => {
-      expect(component.find('OuterChild').props().innerChildValue).toEqual('123');
+    it('passes propDrillInnerChildValue props via OuterChild', () => {
+      expect(component.find('OuterChild').props().propDrillInnerChildValue).toEqual('123');
+    });
+    it('innerChild has prop value propDrillInnerChildValue', () => {
+      expect(component.find('OuterChild InnerChild').props().propDrillInnerChildValue).toEqual('123');
+    });
+  });
+
+  describe('useContext', () => {
+    it('is not passed to innerChildValue props via OuterChild', () => {
+      expect(component.find('OuterChild').props().contextInnerChildValue).toEqual(undefined);
     });
     it('innerChild has prop value innerChildValue', () => {
-      expect(component.find('OuterChild InnerChild').props().innerChildValue).toEqual('123');
+      expect(component.find('OuterChild InnerChild').props().contextInnerChildValue).toEqual('456');
     });
   });
 });
