@@ -1,17 +1,16 @@
 import validate from './../validation';
 
-describe('validate', () => {
-  it('returns empty error array', () => {
-    expect(validate({ value: 'abc@email.com', errors: [] })).toEqual({
-      value: 'abc@email.com',
-      errors: []
-    });
-  });
+describe('validating email', () => {
+  test.each`
+    email              | expectedErrors
+    ${'abc@email.com'} | ${[]}
+    ${'abc'}           | ${['invalid_email', 'too_short']}
+    ${''}              | ${['invalid_email', 'too_short', 'blank']}
+    ${null}            | ${['invalid_email', 'too_short', 'blank']}
+    ${undefined}       | ${['invalid_email', 'too_short', 'blank']}
+  `('returns an error array of $expectedErrors when validating $email as email', ({ email, expectedErrors }) => {
+    const errorMessages = validate({ value: email }).errors;
 
-  it('an array with an error objects', () => {
-    expect(validate({ value: 'abc', errors: [] })).toEqual({
-      value: 'abc',
-      errors: ['invalid_email', 'too_short']
-    });
+    expect(errorMessages).toEqual(expect.arrayContaining(expectedErrors));
   });
 });

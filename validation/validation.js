@@ -12,12 +12,15 @@ const validator = (test, errorKey) => {
 };
 
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-const isEmail = v => EMAIL_REGEX.test(String(v).toLowerCase());
-const validateEmail = validator(isEmail, 'invalid_email');
+const isEmail = v => isPresent(v) && EMAIL_REGEX.test(String(v).toLowerCase());
+const email = validator(isEmail, 'invalid_email');
 
-const isRightLength = v => v.length > 4;
-const validateLength = validator(isRightLength, 'too_short');
+const isRightLength = v => isPresent(v) && v.length > 4;
+const length = validator(isRightLength, 'too_short');
 
-const validate = validatorsReducer(validateEmail, validateLength);
+const isPresent = v => !!v;
+const presence = validator(isPresent, 'blank');
+
+const validate = validatorsReducer(email, length, presence);
 
 export default validate;
