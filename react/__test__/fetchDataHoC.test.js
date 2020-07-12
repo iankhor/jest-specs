@@ -3,30 +3,32 @@ import fakeAxios from 'axios'
 import fetchDataHoc from '../fetchDataHoc'
 import { shallow } from 'enzyme'
 
+jest.mock('axios', () => ({ get: jest.fn(() => Promise.resolve({ data: {} })) }))
+
 describe('fetchDataHoc', () => {
-  let component;
-  const DummyComponent = () => <div></div>
-  const ComponentUnderTest = fetchDataHoc(DummyComponent)
+	let component
+	const DummyComponent = () => <div></div>
+	const ComponentUnderTest = fetchDataHoc(DummyComponent)
 
-  beforeEach(() => jest.clearAllMocks())
+	beforeEach(() => jest.clearAllMocks())
 
-  it('renders', () => {
-    component = shallow(<ComponentUnderTest />)
+	it('renders', () => {
+		component = shallow(<ComponentUnderTest />)
 
-    expect(component).toHaveLength(1)
-  })
+		expect(component).toHaveLength(1)
+	})
 
-  it('fetches data from url', done => {
-    fakeAxios.get.mockImplementationOnce(() => {
-      return Promise.resolve({ data: [1,2,3] })
-    })
+	it('fetches data from url', (done) => {
+		fakeAxios.get.mockImplementationOnce(() => {
+			return Promise.resolve({ data: [1, 2, 3] })
+		})
 
-    component = shallow(<ComponentUnderTest />)
+		component = shallow(<ComponentUnderTest />)
 
-    process.nextTick(() => {
-      expect(component.props().data).toEqual([1,2,3])
+		process.nextTick(() => {
+			expect(component.props().data).toEqual([1, 2, 3])
 
-      done();
-    })
-  })
+			done()
+		})
+	})
 })
