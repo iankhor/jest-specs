@@ -1,31 +1,34 @@
 {
-  "devDependencies": {
-    "@testing-library/dom": "^7.20.0",
-    "@testing-library/jest-dom": "^5.11.0",
-    "@testing-library/react": "^10.4.5",
-    "@testing-library/user-event": "^12.0.11",
-    "babel-core": "^6.26.3",
-    "babel-jest": "^23.6.0",
-    "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1",
-    "enzyme": "^3.7.0",
-    "enzyme-adapter-react-16": "^1.7.0",
-    "jest": "^23.6.0",
-    "react": "^16.6.3",
-    "react-dom": "^16.6.3",
-    "regenerator-runtime": "^0.12.1"
-  },
-  "scripts": {
-    "test": "jest --watchAll --verbose"
-  },
-  "jest": {
-    "setupTestFrameworkScriptFile": "<rootDir>/setup.js",
-    "moduleDirectories": [
-      "node_modules"
-    ]
-  },
-  "dependencies": {
-    "axios": "^0.18.0"
-  }
+	"devDependencies": {
+		"@babel/core": "^7.10.4",
+		"@babel/plugin-proposal-class-properties": "^7.10.4",
+		"@babel/plugin-transform-runtime": "^7.10.4",
+		"@babel/preset-env": "^7.10.4",
+		"@babel/preset-react": "^7.10.4",
+		"@testing-library/dom": "^7.20.0",
+		"@testing-library/jest-dom": "^5.11.0",
+		"@testing-library/react": "^10.4.5",
+		"@testing-library/user-event": "^12.0.11",
+		"babel-jest": "^26.1.0",
+		"enzyme": "^3.7.0",
+		"enzyme-adapter-react-16": "^1.7.0",
+		"jest": "^26.1.0",
+		"react": "^16.6.3",
+		"react-dom": "^16.6.3",
+		"regenerator-runtime": "^0.13.5"
+	},
+	"scripts": {
+		"test": "jest --watchAll --verbose"
+	},
+	"jest": {
+		"setupFilesAfterEnv": [
+			"<rootDir>/setup.js"
+		],
+		"moduleDirectories": [
+			"node_modules"
+		]
+	},
+	"dependencies": {
+		"axios": "^0.19.2"
+	}
 }
