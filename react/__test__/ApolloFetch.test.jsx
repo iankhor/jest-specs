@@ -5,13 +5,7 @@ import ApolloFetch, { client } from '../ApolloFetch'
 import { ApolloProvider } from '@apollo/react-hooks'
 
 import { graphql } from 'msw'
-import { setupServer } from 'msw/node'
-
-const server = setupServer()
-
-beforeAll(() => server.listen())
-afterEach(() => server.resetHandlers())
-afterAll(() => server.close())
+import server from './../../testLib/server'
 
 test('shows nothing on render', () => {
 	render(
