@@ -1,4 +1,4 @@
-import split from '../numbers'
+import split,{weightedSplit} from '../numbers'
 import {sum} from 'mathjs'
 
 
@@ -25,4 +25,30 @@ describe('split()', () => {
             expect(sum(expected)).toEqual(number)
         });
     })
+})
+
+describe('weightedSplit()', () => {
+    describe('trivial weights', () => {
+        test.each`
+            number      | weights              | expected
+            ${100}      | ${[50, 50]}          | ${[50, 50]}
+            ${100}      | ${[120, 40]}         | ${[75, 25]}
+        `('returns $expected when $number is split to weighted parts $weights, total sum of parts balances', ({number, weights, expected}) => {
+            expect(weightedSplit(number, weights)).toEqual(expected)
+            expect(sum(expected)).toEqual(number)
+        });
+    })
+
+    describe('complex weights', () => {
+        test.each`
+            number      | weights               | expected
+            ${100}      | ${[123, 56]}          | ${[68.7151, 31.2849]}
+            ${500}      | ${[99, 13]}            | ${[441.9643, 58.0357]}
+        `('returns $expected when $number is split to weighted parts $weights, total sum of parts balances', ({number, weights, expected}) => {
+            expect(weightedSplit(number, weights)).toEqual(expected)
+            expect(sum(expected)).toEqual(number)
+        });
+    })
+
+    
 })
