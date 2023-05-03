@@ -25,8 +25,6 @@ class AccountingService {
 
 class DebtorService {
     charge(amount, accountId) {
-        const linkedAccounts = AccountsRepository.findLinkedById(accountId)
-
         const receivableAccount = AccountsRepository.findLinkedById(accountId, "ASSET_RECEIVABLE")
         const expenseTaxAccount = AccountsRepository.findLinkedById(accountId, "EXPENSE")
         const salesAccount = AccountsRepository.findLinkedById(accountId, "LIABILITY")
