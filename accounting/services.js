@@ -9,8 +9,22 @@ class AccountingService {
         const debits = events.filter(e => e.action === 'debit')
         const credits = events.filter(e => e.action === 'credit')
 
-        const calculateDebitAccounts = () => sumBy(debits, 'amount') - sumBy(credits, 'amount')
-        const calculateCreditAccounts = () => sumBy(credits, 'amount') - sumBy(debits, 'amount')
+        const calculateDebitAccounts = () => {
+            const balance = sumBy(debits, 'amount') - sumBy(credits, 'amount')
+
+            return {
+                balance: Math.abs(balance),
+                direction: balance >= 0 ? 'DR' : 'CR'
+            }
+        }
+        const calculateCreditAccounts = () => { 
+            const balance = sumBy(credits, 'amount') - sumBy(debits, 'amount')
+
+            return {
+                balance: Math.abs(balance),
+                direction: balance >= 0 ? 'CR' : 'DR'
+            }
+        }
         
         const accountType = {
             "ASSET_RECEIVABLE": calculateDebitAccounts,
