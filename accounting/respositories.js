@@ -51,8 +51,10 @@ class AccountsRepository {
         return accounts.filter(a => ids.includes(a.id))
     }
 
-    static findLinkedById(id) {
-        return linkedAccounts.find(a => a.id === id)
+    static findLinkedById(id, type = "") {
+        const linkedAccountIds = linkedAccounts.find(a => a.id === id).linkedAccountIds
+
+        return type === '' ? this.findAllByIds(linkedAccountIds) : this.findAllByIds(linkedAccountIds).find(a => a.type === type)
     }
 }
 

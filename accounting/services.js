@@ -25,12 +25,11 @@ class AccountingService {
 
 class DebtorService {
     charge(amount, accountId) {
-        const linkedAccountIds = AccountsRepository.findLinkedById(accountId).linkedAccountIds
-        const linkedAccounts = AccountsRepository.findAllByIds(linkedAccountIds)
+        const linkedAccounts = AccountsRepository.findLinkedById(accountId)
 
-        const receivableAccount = linkedAccounts.find(a => a.type === "ASSET_RECEIVABLE")
-        const expenseTaxAccount = linkedAccounts.find(a => a.type === "EXPENSE")
-        const salesAccount = linkedAccounts.find(a => a.type === "LIABILITY")
+        const receivableAccount = AccountsRepository.findLinkedById(accountId, "ASSET_RECEIVABLE")
+        const expenseTaxAccount = AccountsRepository.findLinkedById(accountId, "EXPENSE")
+        const salesAccount = AccountsRepository.findLinkedById(accountId, "LIABILITY")
 
         const taxRate = 0.1
         const amountTaxExclusive = amount / (1 + taxRate)
@@ -64,13 +63,10 @@ class DebtorService {
 
 class CashService {
     receipt(amount, accountId) {
-        const linkedAccountIds = AccountsRepository.findLinkedById(accountId).linkedAccountIds
-        const linkedAccounts = AccountsRepository.findAllByIds(linkedAccountIds)
-
-        const receivableAccount = linkedAccounts.find(a => a.type === "ASSET_RECEIVABLE")
-        const cashAccount = linkedAccounts.find(a => a.type === "ASSET_CASH")
-        const expenseTaxAccount = linkedAccounts.find(a => a.type === "EXPENSE")
-        const salesAccount = linkedAccounts.find(a => a.type === "LIABILITY")
+        const receivableAccount = AccountsRepository.findLinkedById(accountId, "ASSET_RECEIVABLE")
+        const cashAccount = AccountsRepository.findLinkedById(accountId, "ASSET_CASH")
+        const expenseTaxAccount = AccountsRepository.findLinkedById(accountId, "EXPENSE")
+        const salesAccount = AccountsRepository.findLinkedById(accountId, "LIABILITY")
 
         const taxRate = 0.1
         const amountTaxExclusive = amount / (1 + taxRate)
