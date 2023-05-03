@@ -1,10 +1,10 @@
-const {AccountsRepository, JournalEventsRepository} = require('./respositories')
+const {AccountsRepository, JournalRepository} = require('./respositories')
 const {sumBy} = require('lodash')
 
 class AccountingService {
     balance(accountId, date = "2099-12-31") {
         const account = AccountsRepository.findById(accountId)
-        const events = JournalEventsRepository.findAllByAccountId(accountId, "asc", date)
+        const events = JournalRepository.findAllByAccountId(accountId, "asc", date)
 
         const debits = events.filter(e => e.action === 'debit')
         const credits = events.filter(e => e.action === 'credit')
@@ -47,7 +47,7 @@ class DebtorService {
         const amountTaxExclusive = amount / (1 + taxRate)
         const taxAmount = amount - amountTaxExclusive
 
-        JournalEventsRepository.create([
+        JournalRepository.create([
             {
                 "date": "2023-05-01",
                 "eventType": "Charges",
@@ -84,7 +84,7 @@ class CashService {
         const amountTaxExclusive = amount / (1 + taxRate)
         const taxAmount = amount - amountTaxExclusive
 
-        JournalEventsRepository.create([
+        JournalRepository.create([
             {
                 "date": "2023-05-31",
                 "eventType": "CashReceipt",

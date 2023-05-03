@@ -59,7 +59,7 @@ class AccountsRepository {
 }
 
 
-class JournalEventsRepository {
+class JournalRepository {
     static create(events = []) {
         journalsEvents.push(...events)
     }
@@ -80,4 +80,4 @@ class JournalEventsRepository {
     }
 }
 
-module.exports = {AccountsRepository, JournalEventsRepository}
+module.exports = {AccountsRepository, JournalRepository}
