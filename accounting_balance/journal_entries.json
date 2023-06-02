@@ -1,0 +1,60 @@
+[
+    {
+        "id": 1,
+        "document": "invoice-1",
+        "lines": [
+            {
+                "id": 1,
+                "journalEntryId": 1,
+                "accountId": "debtor-1",
+                "entryType": "DR",
+                "referenceJournalId": 1,
+                "amount": 1000 
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "document": "invoice-2",
+        "lines": [
+            {
+                "id": 2,
+                "journalEntryId": 2,
+                "accountId": "debtor-1",
+                "entryType": "DR",
+                "referenceJournalId": 2,
+                "amount": 2000 
+            },
+        ]
+    },
+    {
+        "id": 3,
+        "document": "cash-1",
+        "lines": [
+            {
+                "id": 3,
+                "journalEntryId": 3,
+                "accountId": "debtor-1",
+                "entryType": "CR",
+                "referenceJournalId": 3,
+                "amount": 500
+            },
+            {
+                "id": 4,
+                "journalEntryId": 3,
+                "accountId": "debtor-1",
+                "entryType": "DR",
+                "referenceJournalId": 3,
+                "amount": 500
+            },
+            {
+                "id": 4,
+                "journalEntryId": 3,
+                "accountId": "debtor-1",
+                "entryType": "CR",
+                "referenceJournalId": 1,
+                "amount": 500
+            }
+        ]
+    }
+]
