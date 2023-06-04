@@ -38,7 +38,14 @@
                 "entryType": "CR",
                 "referenceJournalId": 3,
                 "amount": 500
-            },
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "document": "cash-1",
+        "createdAt": "2023-05-04",
+        "lines": [
             {
                 "id": 4,
                 "accountId": "debtor-1",

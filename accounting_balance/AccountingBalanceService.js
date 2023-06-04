@@ -15,6 +15,16 @@ class JournalEntryRepository {
     findByDocument(id) {
         return this.je.find(je => je.document === id)
     }
+
+    findAllByDocument(id) {
+        return this.je.filter(je => je.document === id)
+    }
+
+    findAllBy(id, date) {
+        return this.je
+                    .filter(je => je.document === id)
+                    .filter(je => isBefore(new Date(je.createdAt), new Date(date)) || isEqual(new Date(je.createdAt), new Date(date)))
+    }
 }
 
 function sumByDebit(journalLines) {
@@ -32,7 +42,7 @@ function calculateBalance(journalLines) {
 
     return {
         entry: outstanding >= 0 ? "DR" : "CR",
-        amount: outstanding
+        amount: Math.abs(outstanding)
     }
 }
 
@@ -41,7 +51,7 @@ class AccountingBalanceService {
         this.jeRepository = jeRepository
     }
 
-    debtor_account(accountId, date) {
+    debtorAccount(accountId, date) {
         const journalEntries = this.jeRepository.findCreatedAtTillDate(date)
         const journalLines = journalEntries
                                 .flatMap(je => je.lines)
@@ -53,12 +63,23 @@ class AccountingBalanceService {
     invoice(id, date) {
         const invoiceJournalEntry = this.jeRepository.findByDocument(id)
         const journalId = invoiceJournalEntry.id
-
         const journalEntries = this.jeRepository.findCreatedAtTillDate(date)
+
         const journalLines = journalEntries
                                 .flatMap(je => je.lines)
                                 .filter(jl => jl.referenceJournalId === journalId)
 
+
+        return calculateBalance(journalLines)
+    }
+
+    cashReceipt(id, date) {
+        const journalEntries = this.jeRepository.findAllBy(id, date)
+        const journalIds = journalEntries.map(je => je.id)
+        const journalLines = journalEntries
+                                .flatMap(je => je.lines)
+                                .filter(jl => journalIds.includes(jl.referenceJournalId))
+                                
         return calculateBalance(journalLines)
     }
 
