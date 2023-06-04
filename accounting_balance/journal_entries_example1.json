@@ -9,7 +9,8 @@
                 "id": 1,
                 "entryType": "DR",
                 "referenceJournalId": 1,
-                "amount": 1000 
+                "amount": 1000,
+                "accountCodes": [] 
             }
         ]
     },
@@ -23,7 +24,8 @@
                 "accountId": "debtor-1",
                 "entryType": "DR",
                 "referenceJournalId": 2,
-                "amount": 2000 
+                "amount": 2000,
+                "accountCodes": [] 
             }
         ]
     },
@@ -37,7 +39,11 @@
                 "accountId": "debtor-1",
                 "entryType": "CR",
                 "referenceJournalId": 3,
-                "amount": 500
+                "amount": 500,
+                "accountCodes": [{
+                    "gl": 123,
+                    "tax": 456
+                }]
             }
         ]
     },
@@ -51,14 +57,22 @@
                 "accountId": "debtor-1",
                 "entryType": "DR",
                 "referenceJournalId": 3,
-                "amount": 500
+                "amount": 500,
+                "accountCodes": [{
+                    "gl": 123,
+                    "tax": 456
+                }]
             },
             {
                 "id": 4,
                 "accountId": "debtor-1",
                 "entryType": "CR",
                 "referenceJournalId": 1,
-                "amount": 500
+                "amount": 500,
+                "accountCodes": [{
+                    "gl": 123,
+                    "tax": 456
+                }]
             }
         ]
     }

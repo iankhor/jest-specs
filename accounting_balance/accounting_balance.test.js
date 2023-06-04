@@ -20,7 +20,8 @@ describe("AccountingBalanceService", () =>{
             const {accountingBalanceService}  = subject(example1)
             expect(accountingBalanceService.debtorAccount(documentId, asAt)).toEqual({
                 entry,
-                amount
+                amount,
+                accountCodes: []
             })
         });
     })
@@ -38,23 +39,25 @@ describe("AccountingBalanceService", () =>{
             const {accountingBalanceService}  = subject(example1)
             expect(accountingBalanceService.invoice(documentId, asAt)).toEqual({
                 entry,
-                amount
+                amount,
+                accountCodes: []
             })
         });
     })
 
     describe("cashReceipt()", () =>{
         test.each`
-            documentId    |  asAt           | entry   | amount
-            ${"cash-1"}   | ${"2023-05-01"} | ${"DR"} | ${0}
-            ${"cash-1"}   | ${"2023-05-03"} | ${"CR"} | ${500}
-            ${"cash-1"}   | ${"2023-05-04"} | ${"DR"} | ${0}
+            documentId    |  asAt           | entry   | amount   | accountCodes
+            ${"cash-1"}   | ${"2023-05-01"} | ${"DR"} | ${0}     | ${[]}
+            ${"cash-1"}   | ${"2023-05-03"} | ${"CR"} | ${500}   | ${[{gl: 123, tax: 456}]}
+            ${"cash-1"}   | ${"2023-05-04"} | ${"DR"} | ${0}     | ${[{gl: 123, tax: 456}]}
 
-        `('given $documentId, returns balance of $entry: $amount as at $asAt', ({documentId, asAt, entry, amount}) => {
+        `('given $documentId, returns balance of $entry: $amount as at $asAt', ({documentId, asAt, entry, amount, accountCodes}) => {
             const {accountingBalanceService}  = subject(example1)
             expect(accountingBalanceService.cashReceipt(documentId, asAt)).toEqual({
                 entry,
-                amount
+                amount,
+                accountCodes
             })
         });
     })

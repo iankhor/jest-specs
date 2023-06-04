@@ -1,5 +1,5 @@
 import { isBefore, isEqual } from "date-fns"
-import {sumBy} from 'lodash'
+import {sumBy, maxBy} from 'lodash'
 
 class JournalEntryRepository {
     constructor(je) {
@@ -35,15 +35,16 @@ function sumByCredit(journalLines) {
     return journalLines.entryType === "CR" ? journalLines.amount : 0
 }
 
-function calculateBalance(journalLines) {
+function calculateBalance(journalLines = []) {
     const debits = sumBy(journalLines, sumByDebit)
     const credits = sumBy(journalLines, sumByCredit)
     const outstanding = debits - credits
+    const entry = outstanding >= 0 ? "DR" : "CR"
+    const amount = Math.abs(outstanding)
+    const lines = maxBy(journalLines, (x) => x.id && x.accountId.includes("cash")) // hacky
+    const accountCodes = lines ? lines.accountCodes : []
 
-    return {
-        entry: outstanding >= 0 ? "DR" : "CR",
-        amount: Math.abs(outstanding)
-    }
+    return { entry, amount, accountCodes }
 }
 
 class AccountingBalanceService {
